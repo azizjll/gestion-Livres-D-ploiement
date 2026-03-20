@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
+        <http>
+            <url>https://logs-prod-035.grafana.net/loki/api/v1/push</url>
+            <auth>
+                <username>1524375</username>
+                <password>${LOKI_TOKEN}</password>
+            </auth>
+        </http>
+        <format>
+            <label>
+                <pattern>app=gestion-livres</pattern>
+            </label>
+            <message>
+                <pattern>%d{HH:mm:ss} [%thread] %-5level - %msg%n</pattern>
+            </message>
+        </format>
+    </appender>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss} %-5level - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="LOKI"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
